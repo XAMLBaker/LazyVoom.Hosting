@@ -8,9 +8,11 @@ var app = builder.BuildApp ();  // 🔥
 
 app.OnStartUpAsync = async provider =>
 {
-    Voom.Instance.WithContainerResolver (vmType =>
+    Voom.Instance
+        .WithContainerResolver (vmType =>
     {
-        return provider.GetService (vmType) ?? ActivatorUtilities.CreateInstance (provider, vmType);
+        return provider.GetService (vmType) ?? 
+               ActivatorUtilities.CreateInstance (provider, vmType);
     });
 };
 

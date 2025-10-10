@@ -9,19 +9,23 @@
 
     <!-- NuGet 패키지 정보 -->
     <PackageId>LazyVoom.Hosting.Winform</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>lukewire</Authors>
-    <Description></Description>
+    <Description>Winform Host</Description>
     <PackageTags>LazyVoom.Hosting;LazyVoom.Hosting.Winform;Winform;Hosting Extensions</PackageTags>
     <PackageProjectUrl>https://github.com/XAMLBaker/LazyVoom.Hosting</PackageProjectUrl>
-
+    <PackageIcon>logo.png</PackageIcon>
     <!-- XML 문서 포함 -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- 심볼 패키지 포함 -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>    
   </PropertyGroup>
-
+  
+  <ItemGroup>
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="*">
       <PrivateAssets>all</PrivateAssets>
