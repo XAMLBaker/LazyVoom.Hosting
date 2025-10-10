@@ -20,28 +20,40 @@
       "datatype": "choice",
       "choices": [
         {
-          "choice": "net6.0",
+          "choice": "net6.0-windows",
           "description": "Target net6.0-windows",
-          "displayName": ".NET 6.0"
+          "displayName": "net6.0"
         },
         {
-          "choice": "net7.0",
+          "choice": "net7.0-windows",
           "description": "Target net7.0-windows",
-          "displayName": ".NET 7.0"
+          "displayName": "net7.0"
         },
         {
-          "choice": "net8.0",
+          "choice": "net8.0-windows",
           "description": "Target net8.0-windows",
-          "displayName": ".NET 8.0"
+          "displayName": "net8.0"
         },
         {
-          "choice": "net9.0",
+          "choice": "net9.0-windows",
           "description": "Target net9.0-windows",
-          "displayName": ".NET 9.0"
+          "displayName": "net9.0"
         }
       ],
       "replaces": "net8.0-windows",
       "defaultValue": "net8.0-windows"
     }
-  }
+  },
+  "postActions": [
+    {
+      "description": "Restore NuGet packages",
+      "manualInstructions": [
+        {
+          "text": "Run 'dotnet restore' to download required packages"
+        }
+      ],
+      "actionId": "210D431B-A78B-4D2F-B762-4ED3E3EA9025",
+      "continueOnError": true
+    }
+  ]
 }
