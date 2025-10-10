@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageVersion>1.0.2</PackageVersion>
+    <PackageId>LazyVoom.Hosting.WPF.Template</PackageId>
+    <Title>LazyVoom.Hosting.WPF Template</Title>
+    <Description>Host 기반의 WPF</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageTags>dotnet-new;templates;lukewire;LazyVoom.Hosting;</PackageTags>
+    <PackageProjectUrl>https://github.com/XAMLBaker/LazyVoom.Hosting</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="content\**\*" Exclude="content\**\bin\**;content\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="content\.template.config\icon.png" />
+    <None Include="content\.template.config\template.json" />
+  </ItemGroup>
+</Project>

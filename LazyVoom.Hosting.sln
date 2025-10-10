@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.Hosting.WPF", "src\LazyVoom.Hosting.WPF\LazyVoom.Hosting.WPF.csproj", "{7787ADBF-7C8B-4035-95AD-BF2D5465BDAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{C8D5274F-AC00-46C7-1F8D-E88E81087A52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.Hosting.Winform", "src\LazyVoom.Hosting.Winform\LazyVoom.Hosting.Winform.csproj", "{D4444647-7965-4597-A354-80AB7F32EF59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.WPF.Template", "src\Template\LazyVoom.Hosting.WPF.Template\LazyVoomHosting.WPF.Template.csproj", "{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.Winform.Template", "src\Template\LazyVoom.Hosting.Winform.Template\LazyVoomHosting.Winform.Template.csproj", "{A8686FFA-1515-683E-6AE9-74854C1E8361}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7787ADBF-7C8B-4035-95AD-BF2D5465BDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7787ADBF-7C8B-4035-95AD-BF2D5465BDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7787ADBF-7C8B-4035-95AD-BF2D5465BDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7787ADBF-7C8B-4035-95AD-BF2D5465BDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4444647-7965-4597-A354-80AB7F32EF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4444647-7965-4597-A354-80AB7F32EF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4444647-7965-4597-A354-80AB7F32EF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4444647-7965-4597-A354-80AB7F32EF59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{A8686FFA-1515-683E-6AE9-74854C1E8361} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26CB8B51-A064-46EC-9E5F-F455A8A3E508}
+	EndGlobalSection
+EndGlobal
