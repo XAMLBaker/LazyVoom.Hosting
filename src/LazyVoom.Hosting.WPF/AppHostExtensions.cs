@@ -1,4 +1,3 @@
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
@@ -14,7 +13,7 @@ public static class AppHostExtensions
         Thread.CurrentThread.SetApartmentState (ApartmentState.STA);
     }
 
-    public static Application BuildApp(this HostApplicationBuilder builder)
+    public static WPFHost BuildApp(this HostApplicationBuilder builder)
     {
         Init ();
         var assembly = Assembly.GetEntryAssembly ()!;
@@ -38,29 +37,26 @@ public static class AppHostExtensions
 
         // 등록
         builder.Services.AddSingleton (appType);
-        if (mainWindowType != null)
-        {
-            builder.Services.AddSingleton (mainWindowType);
-        }
+        if (mainWindowType == null)
+            throw new InvalidOperationException (
+        """
+        실행 가능한 Window 타입을 찾지 못했습니다.
 
+        LazyVoom.Hosting.WPF에서는 기본적으로 'MainWindow'를 자동으로 탐색합니다.
+        만약 다른 이름의 창을 사용한다면, 명시적으로 지정하세요:
+
+            builder.BuildApp<App, MyCustomWindow>();
+
+        또는 MainWindow 이름을 유지하세요.
+        """);
+        builder.Services.AddSingleton (mainWindowType);
         var host = builder.Build ();
         var app = (Application)host.Services.GetRequiredService (appType);
-
-        // MainWindow가 있으면 자동으로 띄우기
-        if (mainWindowType != null)
-        {
-            app.Startup += (s, e) =>
-            {
-                var mainWindow = (Window)host.Services.GetRequiredService (mainWindowType);
-                mainWindow.Show ();
-            };
-            app.Exit += (s, e) => host.Dispose ();
-        }
-
-        return app;
+        
+        return new WPFHost (app, host, mainWindowType);
     }
 
-    public static Application BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
+    public static WPFHost BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
                 where TApp : Application
                 where TMainWindow : Window
     {
@@ -70,16 +66,8 @@ public static class AppHostExtensions
         builder.Services.AddSingleton<TMainWindow> ();
 
         var host = builder.Build ();
-
         var app = host.Services.GetRequiredService<TApp> ();
 
-        app.Startup += (s, e) =>
-        {
-            var mainWindow = host.Services.GetRequiredService<TMainWindow> ();
-            mainWindow.Show ();
-        };
-        app.Exit += (s, e) => host.Dispose ();
-
-        return app;
+        return new WPFHost(app,host, typeof(TMainWindow));
     }
 }
