@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.WPF.Templat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.Winform.Template", "src\Template\LazyVoom.Hosting.Winform.Template\LazyVoomHosting.Winform.Template.csproj", "{A8686FFA-1515-683E-6AE9-74854C1E8361}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqUI", "src\Sample\새 폴더\LinqUI\LinqUI.csproj", "{61015517-9A6B-4A2A-83C7-321361AD9588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8686FFA-1515-683E-6AE9-74854C1E8361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61015517-9A6B-4A2A-83C7-321361AD9588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61015517-9A6B-4A2A-83C7-321361AD9588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61015517-9A6B-4A2A-83C7-321361AD9588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61015517-9A6B-4A2A-83C7-321361AD9588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +50,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F277DD28-75A6-B73B-1D5D-5E1E93DD2E23} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
 		{A8686FFA-1515-683E-6AE9-74854C1E8361} = {C8D5274F-AC00-46C7-1F8D-E88E81087A52}
+		{61015517-9A6B-4A2A-83C7-321361AD9588} = {CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26CB8B51-A064-46EC-9E5F-F455A8A3E508}
