@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.WPF.Templat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoomHosting.Winform.Template", "src\Template\LazyVoom.Hosting.Winform.Template\LazyVoomHosting.Winform.Template.csproj", "{A8686FFA-1515-683E-6AE9-74854C1E8361}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqUI", "src\Sample\새 폴더\LinqUI\LinqUI.csproj", "{61015517-9A6B-4A2A-83C7-321361AD9588}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqUI", "src\Sample\LinqUI\LinqUI.csproj", "{61015517-9A6B-4A2A-83C7-321361AD9588}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.ServiceProvider", "LazyVoom.ServiceProvider\LazyVoom.ServiceProvider.csproj", "{9C35D229-3A27-4B57-96AA-9988B38EDBEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.ServiceProvider", "src\Sample\LazyVoom.ServiceProvider\LazyVoom.ServiceProvider.csproj", "{9C35D229-3A27-4B57-96AA-9988B38EDBEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
