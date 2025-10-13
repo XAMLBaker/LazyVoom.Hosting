@@ -1,5 +1,7 @@
-﻿var builder = Host.CreateApplicationBuilder ();
-var app = builder.BuildApp ();
+﻿using LazyVoomHosting.Winform.App;
+
+var builder = Host.CreateApplicationBuilder ();
+var app = builder.BuildApp<Form1> ();
 
 
 app.OnStartUpAsync = async provider =>
