@@ -28,8 +28,6 @@ public class WPFHost
     {
         var provider = _host.Services;
         var app = (Application)provider.GetRequiredService (_appType);
-        var mainWindow = (Window)provider.GetRequiredService (_mainWindowType);
-
         // ✅ Run 전에 OnStartUpAsync 실행
         if (OnStartUpAsync != null)
         {
@@ -39,6 +37,12 @@ public class WPFHost
                 try
                 {
                     await OnStartUpAsync (provider);
+
+                    var modules = provider.GetServices<IModule> ();
+                    foreach (var module in modules)
+                    {
+                        await module.OnStartup (provider);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -47,9 +51,9 @@ public class WPFHost
             });
         }
 
+        var mainWindow = (Window)provider.GetRequiredService (_mainWindowType);
         // ✅ UI 메시지 루프 시작 (블로킹)
         app.Run (mainWindow);
-
         // ✅ 앱 종료 후 OnExitAsync 실행
         if (OnExitAsync != null)
         {

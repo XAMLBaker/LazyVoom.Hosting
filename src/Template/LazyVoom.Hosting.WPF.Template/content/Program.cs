@@ -1,4 +1,6 @@
-﻿var builder = Host.CreateApplicationBuilder ();
+﻿using LazyVoomHosting.WPF.App;
+
+var builder = Host.CreateApplicationBuilder ();
 
 var app = builder.BuildApp<App, MainWindow> ();  // 🔥
 

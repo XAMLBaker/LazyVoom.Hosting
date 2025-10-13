@@ -8,67 +8,17 @@ namespace LazyVoom.Hosting.WPF;
 
 public static class AppHostExtensions
 {
-    static void Init()
+    static AppHostExtensions()
     {
+        // 클래스가 처음 사용될 때 자동으로 한 번만 실행
         Thread.CurrentThread.SetApartmentState (ApartmentState.Unknown);
         Thread.CurrentThread.SetApartmentState (ApartmentState.STA);
     }
-
-    /// <summary>
-    /// AOT 이슈 발생우려로 X
-    /// </summary>
-    /// <typeparam name="TApp"></typeparam>
-    /// <typeparam name="TMainWindow"></typeparam>
-    /// <param name="builder"></param>
-    /// <returns></returns>
-    //public static WPFHost BuildApp(this HostApplicationBuilder builder)
-    //{
-    //    Init ();
-    //    var assembly = Assembly.GetEntryAssembly ()!;
-
-    //    // App 타입 찾기
-    //    var appType = assembly.GetTypes ()
-    //        .FirstOrDefault (t => t.Name == "App"
-    //                          && typeof (Application).IsAssignableFrom (t));
-
-    //    // MainWindow 타입 찾기
-    //    var mainWindowType = assembly.GetTypes ()
-    //        .FirstOrDefault (t => t.Name == "MainWindow"
-    //                          && typeof (Window).IsAssignableFrom (t));
-
-    //    // App이 없으면 기본 Application 사용
-    //    if (appType == null)
-    //    {
-    //        appType = typeof (Application);
-    //    }
-
-    //    // 등록
-    //    builder.Services.AddSingleton (appType);
-    //    if (mainWindowType == null)
-    //        throw new InvalidOperationException (
-    //    """
-    //    실행 가능한 Window 타입을 찾지 못했습니다.
-
-    //    LazyVoom.Hosting.WPF에서는 기본적으로 'MainWindow'를 자동으로 탐색합니다.
-    //    만약 다른 이름의 창을 사용한다면, 명시적으로 지정하세요:
-
-    //        builder.BuildApp<App, MyCustomWindow>();
-
-    //    또는 MainWindow 이름을 유지하세요.
-    //    """);
-    //    builder.Services.AddSingleton (mainWindowType);
-    //    var host = builder.Build ();
-    //    var app = (Application)host.Services.GetRequiredService (appType);
-
-    //    return new WPFHost (app, host, mainWindowType);
-    //}
 
     public static WPFHost BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
          where TApp : Application, new()
          where TMainWindow : Window
     {
-        Init ();
-
         // 1. Application 인스턴스 생성 (AOT-safe)
         var appInstance = new TApp ();
 
@@ -106,5 +56,27 @@ public static class AppHostExtensions
 
         var host = builder.Build ();
         return new WPFHost (host, typeof (TApp), typeof (TMainWindow));
+    }
+
+    public static HostApplicationBuilder AddModule<TModule>(this HostApplicationBuilder builder)
+        where TModule : IModule, new()
+    {
+        var module = new TModule ();
+
+        // 서비스 등록
+        module.ConfigureServices (builder.Services);
+
+        // Startup 콜백 저장 (나중에 BuildApp에서 실행)
+        builder.Services.AddSingleton<IModule> (module);
+
+        return builder;
+    }
+
+    // 여러 모듈 체이닝 가능
+    public static HostApplicationBuilder AddModule(this HostApplicationBuilder builder, IModule module)
+    {
+        module.ConfigureServices (builder.Services);
+        builder.Services.AddSingleton (module);
+        return builder;
     }
 }
