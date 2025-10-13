@@ -1,5 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
+ï»¿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 
@@ -13,60 +14,97 @@ public static class AppHostExtensions
         Thread.CurrentThread.SetApartmentState (ApartmentState.STA);
     }
 
-    public static WPFHost BuildApp(this HostApplicationBuilder builder)
-    {
-        Init ();
-        var assembly = Assembly.GetEntryAssembly ()!;
+    /// <summary>
+    /// AOT ì´ìŠˆ ë°œìƒìš°ë ¤ë¡œ X
+    /// </summary>
+    /// <typeparam name="TApp"></typeparam>
+    /// <typeparam name="TMainWindow"></typeparam>
+    /// <param name="builder"></param>
+    /// <returns></returns>
+    //public static WPFHost BuildApp(this HostApplicationBuilder builder)
+    //{
+    //    Init ();
+    //    var assembly = Assembly.GetEntryAssembly ()!;
 
-        // App Å¸ÀÔ Ã£±â
-        var appType = assembly.GetTypes ()
-            .FirstOrDefault (t => t.Name == "App"
-                              && typeof (Application).IsAssignableFrom (t));
+    //    // App íƒ€ì… ì°¾ê¸°
+    //    var appType = assembly.GetTypes ()
+    //        .FirstOrDefault (t => t.Name == "App"
+    //                          && typeof (Application).IsAssignableFrom (t));
 
-        // MainWindow Å¸ÀÔ Ã£±â
-        var mainWindowType = assembly.GetTypes ()
-            .FirstOrDefault (t => t.Name == "MainWindow"
-                              && typeof (Window).IsAssignableFrom (t));
+    //    // MainWindow íƒ€ì… ì°¾ê¸°
+    //    var mainWindowType = assembly.GetTypes ()
+    //        .FirstOrDefault (t => t.Name == "MainWindow"
+    //                          && typeof (Window).IsAssignableFrom (t));
 
-        // AppÀÌ ¾øÀ¸¸é ±âº» Application »ç¿ë
-        if (appType == null)
-        {
-            appType = typeof (Application);
-        }
+    //    // Appì´ ì—†ìœ¼ë©´ ê¸°ë³¸ Application ì‚¬ìš©
+    //    if (appType == null)
+    //    {
+    //        appType = typeof (Application);
+    //    }
 
-        // µî·Ï
-        builder.Services.AddSingleton (appType);
-        if (mainWindowType == null)
-            throw new InvalidOperationException (
-        """
-        ½ÇÇà °¡´ÉÇÑ Window Å¸ÀÔÀ» Ã£Áö ¸øÇß½À´Ï´Ù.
+    //    // ë“±ë¡
+    //    builder.Services.AddSingleton (appType);
+    //    if (mainWindowType == null)
+    //        throw new InvalidOperationException (
+    //    """
+    //    ì‹¤í–‰ ê°€ëŠ¥í•œ Window íƒ€ì…ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.
 
-        LazyVoom.Hosting.WPF¿¡¼­´Â ±âº»ÀûÀ¸·Î 'MainWindow'¸¦ ÀÚµ¿À¸·Î Å½»öÇÕ´Ï´Ù.
-        ¸¸¾à ´Ù¸¥ ÀÌ¸§ÀÇ Ã¢À» »ç¿ëÇÑ´Ù¸é, ¸í½ÃÀûÀ¸·Î ÁöÁ¤ÇÏ¼¼¿ä:
+    //    LazyVoom.Hosting.WPFì—ì„œëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 'MainWindow'ë¥¼ ìë™ìœ¼ë¡œ íƒìƒ‰í•©ë‹ˆë‹¤.
+    //    ë§Œì•½ ë‹¤ë¥¸ ì´ë¦„ì˜ ì°½ì„ ì‚¬ìš©í•œë‹¤ë©´, ëª…ì‹œì ìœ¼ë¡œ ì§€ì •í•˜ì„¸ìš”:
 
-            builder.BuildApp<App, MyCustomWindow>();
+    //        builder.BuildApp<App, MyCustomWindow>();
 
-        ¶Ç´Â MainWindow ÀÌ¸§À» À¯ÁöÇÏ¼¼¿ä.
-        """);
-        builder.Services.AddSingleton (mainWindowType);
-        var host = builder.Build ();
-        var app = (Application)host.Services.GetRequiredService (appType);
-        
-        return new WPFHost (app, host, mainWindowType);
-    }
+    //    ë˜ëŠ” MainWindow ì´ë¦„ì„ ìœ ì§€í•˜ì„¸ìš”.
+    //    """);
+    //    builder.Services.AddSingleton (mainWindowType);
+    //    var host = builder.Build ();
+    //    var app = (Application)host.Services.GetRequiredService (appType);
+
+    //    return new WPFHost (app, host, mainWindowType);
+    //}
 
     public static WPFHost BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
-                where TApp : Application
-                where TMainWindow : Window
+         where TApp : Application, new()
+         where TMainWindow : Window
     {
         Init ();
 
-        builder.Services.AddSingleton<TApp> ();
+        // 1. Application ì¸ìŠ¤í„´ìŠ¤ ìƒì„± (AOT-safe)
+        var appInstance = new TApp ();
+
+        // 2. ë””ìì¸ íƒ€ì„ì¸ì§€ í™•ì¸
+        bool isDesignMode = DesignerProperties.GetIsInDesignMode (new DependencyObject ());
+
+        if (!isDesignMode)
+        {
+            // 3. Application.Current ì§€ì •
+            var field = typeof (Application).GetField ("s_appInstance", BindingFlags.Static | BindingFlags.NonPublic);
+            if (field != null)
+                field.SetValue (null, appInstance);
+            else
+                typeof (Application)
+                    .GetProperty ("Current", BindingFlags.Static | BindingFlags.NonPublic)?
+                    .SetValue (null, appInstance);
+
+            // 4. App.xaml ë¡œë“œ
+            var appAssemblyName = appInstance.GetType ().Assembly.GetName ().Name;
+            var appUri = new Uri ($"/{appAssemblyName};component/app.xaml", UriKind.Relative);
+            try
+            {
+                Application.LoadComponent (appInstance, appUri);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine ($"[WARN] App.xaml ë¡œë“œ ì‹¤íŒ¨: {ex.Message}");
+            }
+        }
+
+        // 5. DI ë“±ë¡ â€” í•œ ì¸ìŠ¤í„´ìŠ¤ë¡œ ì—¬ëŸ¬ íƒ€ì… ì°¸ì¡° ê°€ëŠ¥
+        builder.Services.AddSingleton (appInstance);              // Application íƒ€ì…
+        builder.Services.AddSingleton (typeof (TApp), appInstance); // TApp(App) íƒ€ì…
         builder.Services.AddSingleton<TMainWindow> ();
 
         var host = builder.Build ();
-        var app = host.Services.GetRequiredService<TApp> ();
-
-        return new WPFHost(app,host, typeof(TMainWindow));
+        return new WPFHost (host, typeof (TApp), typeof (TMainWindow));
     }
 }
