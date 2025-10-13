@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace LazyVoomHosting.App
+namespace LazyVoomHosting.WPF.App
 {
     /// <summary>
     /// Interaction logic for App.xaml
