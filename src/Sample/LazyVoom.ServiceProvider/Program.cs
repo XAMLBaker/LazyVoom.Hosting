@@ -4,7 +4,7 @@ using LazyVoom.ServiceProvider;
 var builder = Host.CreateApplicationBuilder ();
 
 builder.Services.AddSingleton<MainWindowViewModel> ();
-var app = builder.BuildApp ();  // 🔥
+var app = builder.BuildApp<App,MainWindow> ();  // 🔥
 
 app.OnStartUpAsync = async provider =>
 {
@@ -14,6 +14,12 @@ app.OnStartUpAsync = async provider =>
         return provider.GetService (vmType) ?? 
                ActivatorUtilities.CreateInstance (provider, vmType);
     });
+};
+// Exit 시 정리
+app.OnExitAsync = async provider =>
+{
+    Console.WriteLine ("앱 종료 중...");
+    await Task.Delay (200);
 };
 
 app.Run ();
