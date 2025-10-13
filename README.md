@@ -48,32 +48,23 @@ app.OnStartUpAsync = async provider =>
 await app.RunAsync();
 ```
 ## WPF 사용 예제
-
-기본 실행:
 ```csharp
 var builder = Host.CreateApplicationBuilder();
-var app = builder.BuildApp();  // App과 MainWindow 기본 사용
+var app = builder.BuildApp<App, MainWindow>();
 
 app.OnStartUpAsync = async provider =>
 {
     // DI 서비스 초기화 등
 };
-
-app.Run();
-```
-
-App이나 MainWindow를 기본값이 아닌 다른 클래스로 지정하고 싶을 경우:
-
-```csharp
-var builder = Host.CreateApplicationBuilder();
-var app = builder.BuildApp<App2, MainWindow2>();
-
-app.OnStartUpAsync = async provider =>
+// Exit 시 정리
+app.OnExitAsync = async provider =>
 {
-    // DI 서비스 초기화 등
+    Console.WriteLine ("앱 종료 중...");
+    await Task.Delay (200);
 };
 
 app.Run();
 ```
+
 
 이런 식으로 Host 기반 실행 + DI 초기화 + 커스텀 App/MainWindow까지 깔끔하게 관리할 수 있습니다.
