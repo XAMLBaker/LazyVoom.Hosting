@@ -20,9 +20,8 @@ public static class AppHostExtensions
 
         // App 타입 찾기
         var appType = assembly.GetTypes ()
-            .FirstOrDefault (t => typeof (Application).IsAssignableFrom (t)
-                              && !t.IsAbstract
-                              && t != typeof (Application));
+            .FirstOrDefault (t => t.Name == "App"
+                              && typeof (Application).IsAssignableFrom (t));
 
         // MainWindow 타입 찾기
         var mainWindowType = assembly.GetTypes ()
