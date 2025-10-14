@@ -28,13 +28,10 @@ public static class AppHostExtensions
         if (!isDesignMode)
         {
             // 3. Application.Current 지정
-            var field = typeof (Application).GetField ("s_appInstance", BindingFlags.Static | BindingFlags.NonPublic);
-            if (field != null)
-                field.SetValue (null, appInstance);
-            else
-                typeof (Application)
-                    .GetProperty ("Current", BindingFlags.Static | BindingFlags.NonPublic)?
-                    .SetValue (null, appInstance);
+
+            typeof (Application)
+                .GetProperty ("Current", BindingFlags.Static | BindingFlags.NonPublic)?
+                .SetValue (null, appInstance);
 
             // 4. App.xaml 로드
             var appAssemblyName = appInstance.GetType ().Assembly.GetName ().Name;
