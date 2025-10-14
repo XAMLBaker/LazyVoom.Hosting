@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqUI", "src\Sample\LinqUI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.ServiceProvider", "src\Sample\LazyVoom.ServiceProvider\LazyVoom.ServiceProvider.csproj", "{9C35D229-3A27-4B57-96AA-9988B38EDBEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleTest", "ModuleTest\ModuleTest.csproj", "{AACF1023-062B-47BA-BE92-E75484DCD939}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleTest", "src\Sample\ModuleTest\ModuleTest.csproj", "{AACF1023-062B-47BA-BE92-E75484DCD939}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.LazyRegion", "LazyVoom.LazyRegion\LazyVoom.LazyRegion.csproj", "{B88E0D29-862C-4315-8919-9BEADFCB0EAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.LazyRegion", "src\Sample\LazyVoom.LazyRegion\LazyVoom.LazyRegion.csproj", "{B88E0D29-862C-4315-8919-9BEADFCB0EAE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "src\Test\Project1\Project1.csproj", "{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}"
 EndProject
