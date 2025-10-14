@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModuleTest", "ModuleTest\Mo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.LazyRegion", "LazyVoom.LazyRegion\LazyVoom.LazyRegion.csproj", "{B88E0D29-862C-4315-8919-9BEADFCB0EAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "src\Test\Project1\Project1.csproj", "{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,10 @@ Global
 		{B88E0D29-862C-4315-8919-9BEADFCB0EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B88E0D29-862C-4315-8919-9BEADFCB0EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B88E0D29-862C-4315-8919-9BEADFCB0EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{9C35D229-3A27-4B57-96AA-9988B38EDBEC} = {CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}
 		{AACF1023-062B-47BA-BE92-E75484DCD939} = {CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}
 		{B88E0D29-862C-4315-8919-9BEADFCB0EAE} = {CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}
+		{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1} = {CB4FCE58-CB05-4806-AA5E-7532A9FC33A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26CB8B51-A064-46EC-9E5F-F455A8A3E508}
