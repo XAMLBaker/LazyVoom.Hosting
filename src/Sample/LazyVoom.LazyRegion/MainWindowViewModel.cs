@@ -10,8 +10,6 @@ public partial class MainWindowViewModel : ObservableObject
     public MainWindowViewModel(ILazyRegionManager lazyRegionManager)
     {
         this._lazyRegionManager = lazyRegionManager;
-
-        this._lazyRegionManager.NavigateAsync ("Root", "a");
     }
 
     [RelayCommand]

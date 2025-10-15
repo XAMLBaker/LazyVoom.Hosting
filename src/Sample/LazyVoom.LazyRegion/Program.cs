@@ -5,7 +5,11 @@ using LazyVoom.LazyRegion;
 var builder = Host.CreateApplicationBuilder ();
 builder.Services.UseLazyRegion ()
                 .AddLazyView<ScreenA> ("a")
-                .AddLazyView<ScreenB> ("b");
+                .AddLazyView<ScreenB> ("b")
+                .ConfigureInitialNavigation (configure =>
+                {
+                    configure.NavigateAsync ("Root", "a");
+                });
 builder.Services.AddSingleton<MainWindowViewModel> ();
 
 var app = builder.BuildApp<App, MainWindow> ();  // 🔥
