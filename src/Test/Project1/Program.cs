@@ -1,13 +1,13 @@
 ﻿using Project1;
 
 var builder = Host.CreateApplicationBuilder ();
+builder.Services.AddHostedService<Worker> ();
 
 var app = builder.BuildApp<App, MainWindow> ();  // 🔥
+//app.OnStartUpAsync = async provider =>
+//{
 
-app.OnStartUpAsync = async provider =>
-{
-
-};
+//};
 // Exit 시 정리
 app.OnExitAsync = async provider =>
 {
@@ -16,3 +16,15 @@ app.OnExitAsync = async provider =>
 };
 
 app.Run ();
+
+
+public class Worker : IHostedService
+{
+    public async Task StartAsync(CancellationToken cancellationToken)
+    {
+    }
+
+    public async Task StopAsync(CancellationToken cancellationToken)
+    {
+    }
+}

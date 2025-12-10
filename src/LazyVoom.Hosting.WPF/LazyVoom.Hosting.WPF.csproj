@@ -9,7 +9,7 @@
 
     <!-- NuGet 패키지 정보 -->
     <PackageId>LazyVoom.Hosting.WPF</PackageId>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <Authors>lukewire</Authors>
     <Description>WPF Host</Description>
     <PackageTags>LazyVoom.Hosting;LazyVoom.Hosting.WPF;WPF;Hosting Extensions</PackageTags>

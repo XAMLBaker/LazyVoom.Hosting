@@ -29,42 +29,41 @@ public class WPFHost
         var provider = _host.Services;
         var app = (Application)provider.GetRequiredService (_appType);
         // ✅ Run 전에 OnStartUpAsync 실행
-        if (OnStartUpAsync != null)
-        {
             // UI 루프 블로킹 없이 백그라운드 Task 실행
-            _ = Task.Run (async () =>
+        _ = Task.Run (async () =>
+        {
+            try
             {
-                try
-                {
+                if(OnStartUpAsync != null)
                     await OnStartUpAsync (provider);
 
-                    var modules = provider.GetServices<IModule> ();
-                    foreach (var module in modules)
-                    {
-                        await module.OnStartup (provider);
-                    }
-                }
-                catch (Exception ex)
+                var modules = provider.GetServices<IModule> ();
+                foreach (var module in modules)
                 {
-                    Console.WriteLine ($"[ERROR] OnStartUpAsync: {ex}");
+                    await module.OnStartup (provider);
                 }
-            });
-        }
+
+                _host.Run ();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine ($"[ERROR] OnStartUpAsync: {ex}");
+            }
+        });
 
         var mainWindow = (Window)provider.GetRequiredService (_mainWindowType);
         // ✅ UI 메시지 루프 시작 (블로킹)
         app.Run (mainWindow);
+        
         // ✅ 앱 종료 후 OnExitAsync 실행
-        if (OnExitAsync != null)
+        try
         {
-            try
-            {
+            if (OnExitAsync != null)
                 OnExitAsync (provider).GetAwaiter ().GetResult ();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine ($"[ERROR] OnExitAsync: {ex}");
-            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine ($"[ERROR] OnExitAsync: {ex}");
         }
 
         // ✅ Host 정리
