@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\LazyVoom.Hosting.WPF\LazyVoom.Hosting.WPF.csproj" />
+    <ProjectReference Include="..\..\LazyVoom.Hosting.WPF\LazyVoom.Hosting.WPF.csproj" />
   </ItemGroup>
 
 </Project>

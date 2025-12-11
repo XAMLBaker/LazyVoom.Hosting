@@ -7,8 +7,7 @@ using System.Windows.Media;
 HotReloadManager.Enable ();
 
 var builder = Host.CreateApplicationBuilder ();
-
-var app = builder.BuildApp ();  // 🔥
+var app = builder.BuildApp<App,MainWindow> ();  // 🔥
 
 app.Run ();
 

@@ -13,8 +13,8 @@
     <PackageReference Include="LazyVoom.Hosting.WPF" Version="*">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="LinqUI.WPF" Version="1.0.6" />
-    <PackageReference Include="LinqUI.WPF.HotReload" Version="1.0.0" />
+    <PackageReference Include="LinqUI.WPF" Version="1.1.0" />
+    <PackageReference Include="LinqUI.WPF.HotReload" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="*">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
