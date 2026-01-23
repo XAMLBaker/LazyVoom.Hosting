@@ -1,4 +1,6 @@
-﻿namespace ModuleTest.Modules;
+﻿using LazyVoom.Hosting.Core;
+
+namespace ModuleTest.Modules;
 
 public class Module : IModule
 {

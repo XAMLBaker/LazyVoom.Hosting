@@ -31,5 +31,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\LazyVoom.Hosting.Core\LazyVoom.Hosting.Core.csproj" />
+  </ItemGroup>
 
 </Project>

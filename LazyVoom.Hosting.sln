@@ -25,6 +25,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.LazyRegion", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "src\Test\Project1\Project1.csproj", "{91FDB057-FCF0-4BBB-B85C-78F6355E5CA1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.Hosting.Core", "src\LazyVoom.Hosting.Core\LazyVoom.Hosting.Core.csproj", "{628EF051-4004-4758-BD34-796465766C68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LazyVoom.Hosting.MewUI", "src\LazyVoom.Hosting.MewUI\LazyVoom.Hosting.MewUI.csproj", "{460101A7-A67D-4C8E-B42F-54775FC1A335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoomHostingMewUI", "src\VoomHostingMewUI\VoomHostingMewUI.csproj", "{E28EC0A4-F3A5-42EF-9E33-E9DD9465E17A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppTest", "src\WinFormsAppTest\WinFormsAppTest.csproj", "{BDD0EE9E-3E88-41A1-8454-71FB42E62FC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

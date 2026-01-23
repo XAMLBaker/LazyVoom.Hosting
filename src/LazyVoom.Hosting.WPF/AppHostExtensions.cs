@@ -15,7 +15,7 @@ public static class AppHostExtensions
         Thread.CurrentThread.SetApartmentState (ApartmentState.STA);
     }
 
-    public static WPFHost BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
+    public static WPFApp BuildApp<TApp, TMainWindow>(this HostApplicationBuilder builder)
          where TApp : Application, new()
          where TMainWindow : Window
     {
@@ -52,28 +52,6 @@ public static class AppHostExtensions
         builder.Services.AddSingleton<TMainWindow> ();
 
         var host = builder.Build ();
-        return new WPFHost (host, typeof (TApp), typeof (TMainWindow));
-    }
-
-    public static HostApplicationBuilder AddModule<TModule>(this HostApplicationBuilder builder)
-        where TModule : IModule, new()
-    {
-        var module = new TModule ();
-
-        // 서비스 등록
-        module.ConfigureServices (builder.Services);
-
-        // Startup 콜백 저장 (나중에 BuildApp에서 실행)
-        builder.Services.AddSingleton<IModule> (module);
-
-        return builder;
-    }
-
-    // 여러 모듈 체이닝 가능
-    public static HostApplicationBuilder AddModule(this HostApplicationBuilder builder, IModule module)
-    {
-        module.ConfigureServices (builder.Services);
-        builder.Services.AddSingleton (module);
-        return builder;
+        return new WPFApp (host, typeof (TApp), typeof (TMainWindow));
     }
 }

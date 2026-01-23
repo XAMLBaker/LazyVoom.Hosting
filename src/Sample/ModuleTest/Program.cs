@@ -1,4 +1,5 @@
-﻿using ModuleTest;
+﻿using LazyVoom.Hosting.Core.Extensions;
+using ModuleTest;
 using ModuleTest.Modules;
 
 var builder = Host.CreateApplicationBuilder ();

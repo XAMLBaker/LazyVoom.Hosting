@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using LazyVoom.Hosting.Core;
+using System.Windows.Controls;
 
 namespace ModuleTest.Modules;
 

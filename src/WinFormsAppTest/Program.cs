@@ -1,9 +1,12 @@
-﻿using Project1;
+﻿using LazyVoom.Hosting.Winform;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using WinFormsAppTest;
 
 var builder = Host.CreateApplicationBuilder ();
 builder.Services.AddHostedService<Worker> ();
 
-var app = builder.BuildApp<App, MainWindow> ();  // 🔥
+var app = builder.BuildApp<Form1> ();  // 🔥
 app.OnStartUpAsync = async provider =>
 {
 

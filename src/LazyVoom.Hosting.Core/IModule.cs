@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace LazyVoom.Hosting.WPF
+namespace LazyVoom.Hosting.Core
 {
     public interface IModule
     {

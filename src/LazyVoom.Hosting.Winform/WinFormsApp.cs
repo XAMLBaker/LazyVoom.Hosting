@@ -1,64 +1,42 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Windows.Forms;
+using LazyVoom.Hosting.Core;
 
 namespace LazyVoom.Hosting.Winform;
 
-public class WinFormsHost
+public class WinFormsApp : VoomApp
 {
-    /// <summary>앱 시작 시점 비동기 초기화 콜백</summary>
-    public Func<IServiceProvider, Task>? OnStartUpAsync { get; set; }
-
-    // Exit 시 실행할 비동기 작업
-    public Func<IServiceProvider, Task>? OnExitAsync
-    {
-        get; set;
-    }
-
     /// <summary>MainForm과 앱 전체 컨텍스트</summary>
     public ApplicationContext? Context { get; private set; }
 
-    /// <summary>DI Host</summary>
-    public IHost Host { get; }
-
     /// <summary>MainForm 타입</summary>
     private Type MainFormType { get; }
-    public WinFormsHost(IHost host, Type formType)
+    public WinFormsApp(IHost host, Type formType)
+        :base(host)
     {
-        Host = host;
         MainFormType = formType;
     }
 
     /// <summary>WinForms 앱 실행</summary>
-    public async Task RunAsync()
+    public async Task Run()
     {
         var provider = Host.Services;
         ConfigureWinFormsEnvironment ();
 
-        if (OnStartUpAsync != null)
-            await OnStartUpAsync (provider);
+        // 비동기 호스트 시작 (UI 스레드 블로킹하지 않음)
+        _ = HostLifecycle.StartHostAsync (Host, provider, OnStartUpAsync);
 
-        // 2️⃣ MainForm은 싱글톤으로 root provider에서 가져오기
+        // MainForm은 싱글톤으로 root provider에서 가져오기
         var mainForm = (Form)Host.Services.GetRequiredService (MainFormType);
 
-        // 3️⃣ MainForm 종료 시 Host 정리
+        // MainForm 종료 시 Host 정리
         mainForm.FormClosed += (s, e) =>
         {
-            if (OnExitAsync != null)
-            {
-                try
-                {
-                    OnExitAsync (provider).GetAwaiter ().GetResult ();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine ($"[ERROR] OnExitAsync: {ex}");
-                }
-            }
-            Host.Dispose ();
+            // 공통 종료 처리 사용
+            HostLifecycle.StopHostAndRunExit (Host, provider, OnExitAsync);
         };
 
-        // 4️⃣ ApplicationContext에 MainForm 등록 후 실행
+        // ApplicationContext에 MainForm 등록 후 실행
         Context = new ApplicationContext (mainForm);
         Application.Run (Context);
     }
