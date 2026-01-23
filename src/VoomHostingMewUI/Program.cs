@@ -15,7 +15,7 @@ app.OnStartUpAsync = async provider =>
 app.OnExitAsync = async provider =>
 {
     Console.WriteLine ("앱 종료 중...");
-    await Task.Delay (200);
+    Task.Delay (200);
 };
 
 app.Run ();

@@ -7,7 +7,7 @@ namespace LazyVoom.Hosting.Winform;
 public class WinFormsApp : VoomApp
 {
     /// <summary>MainForm과 앱 전체 컨텍스트</summary>
-    public ApplicationContext? Context { get; private set; }
+    public static ApplicationContext? Context { get; private set; }
 
     /// <summary>MainForm 타입</summary>
     private Type MainFormType { get; }
@@ -22,12 +22,14 @@ public class WinFormsApp : VoomApp
     {
         var provider = Host.Services;
         ConfigureWinFormsEnvironment ();
+        // MainForm은 싱글톤으로 root provider에서 가져오기
+        var mainForm = (Form)Host.Services.GetRequiredService (MainFormType);
+
+        // ApplicationContext에 MainForm 등록 후 실행
+        Context = new ApplicationContext (mainForm);
 
         // 비동기 호스트 시작 (UI 스레드 블로킹하지 않음)
         _ = HostLifecycle.StartHostAsync (Host, provider, OnStartUpAsync);
-
-        // MainForm은 싱글톤으로 root provider에서 가져오기
-        var mainForm = (Form)Host.Services.GetRequiredService (MainFormType);
 
         // MainForm 종료 시 Host 정리
         mainForm.FormClosed += (s, e) =>
@@ -35,21 +37,12 @@ public class WinFormsApp : VoomApp
             // 공통 종료 처리 사용
             HostLifecycle.StopHostAndRunExit (Host, provider, OnExitAsync);
         };
-
-        // ApplicationContext에 MainForm 등록 후 실행
-        Context = new ApplicationContext (mainForm);
         Application.Run (Context);
     }
 
     /// <summary>WinForms 환경 설정 (STA, HighDPI, VisualStyles)</summary>
     private static void ConfigureWinFormsEnvironment()
     {
-        if (Thread.CurrentThread.GetApartmentState () != ApartmentState.STA)
-        {
-            Thread.CurrentThread.SetApartmentState (ApartmentState.Unknown);
-            Thread.CurrentThread.SetApartmentState (ApartmentState.STA);
-        }
-
         SetHighDpiMode ();
 
         Application.OleRequired ();

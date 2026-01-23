@@ -19,7 +19,6 @@ namespace LazyVoom.Hosting.Core.Extensions
             return builder;
         }
 
-        // 여러 모듈 체이닝 가능
         public static HostApplicationBuilder AddModule(this HostApplicationBuilder builder, IModule module)
         {
             module.ConfigureServices(builder.Services);

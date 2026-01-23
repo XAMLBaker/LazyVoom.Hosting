@@ -1,7 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Threading.Tasks;
 
 namespace LazyVoom.Hosting.Core
 {
@@ -39,7 +37,7 @@ namespace LazyVoom.Hosting.Core
             try
             {
                 if (onExit != null)
-                    onExit(provider).GetAwaiter().GetResult();
+                    onExit (provider);
             }
             catch (Exception ex)
             {

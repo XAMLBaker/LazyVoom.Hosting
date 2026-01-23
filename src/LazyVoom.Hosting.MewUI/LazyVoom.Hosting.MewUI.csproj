@@ -2,16 +2,51 @@
 
   <PropertyGroup>
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <LangVersion>12</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
+    <PublishAot>true</PublishAot>
 
+    <!-- NuGet 패키지 정보 -->
+    <PackageId>LazyVoom.Hosting.MewUI</PackageId>
+    <Version>1.1.0</Version>
+    <Authors>lukewire</Authors>
+    <Description>MewUI Host</Description>
+    <PackageTags>LazyVoom.Hosting;LazyVoom.Hosting.MewUI;MewUI;Hosting Extensions</PackageTags>
+    <PackageProjectUrl>https://github.com/XAMLBaker/LazyVoom.Hosting</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <!-- XML 문서 포함 -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- 심볼 패키지 포함 -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+    <!-- 참조 프로젝트 포함 -->
+    <IncludeReferencedProjects>true</IncludeReferencedProjects>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+  </PropertyGroup>
+  
   <ItemGroup>
-    <PackageReference Include="Aprillz.MewUI" Version="0.8.3" />
+    <None Include="logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Aprillz.MewUI" Version="0.8.4" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- Core 프로젝트 참조 -->
+  <ItemGroup Condition="'$(Configuration)' == 'Debug'">
     <ProjectReference Include="..\LazyVoom.Hosting.Core\LazyVoom.Hosting.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <ProjectReference Include="..\LazyVoom.Hosting.Core\LazyVoom.Hosting.Core.csproj" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- 참조된 프로젝트를 패키지에 포함 -->
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
 </Project>

@@ -9,7 +9,7 @@ public class WPFApp : VoomApp
 {
     protected Type AppType { get; }
     protected Type MainWindowType { get; }
-    public WPFApp(IHost host, Type appType, Type mainWindowType)
+    public WPFApp(IHost host, Type appType, Type mainWindowType = null)
             : base(host)
     {
         AppType = appType;
@@ -19,13 +19,21 @@ public class WPFApp : VoomApp
     public override void Run()
     {
         var provider = Host.Services;
-        var app = (Application)provider.GetRequiredService (AppType);
 
         HostLifecycle.StartHostAsync (Host, provider, OnStartUpAsync);
 
-        var mainWindow = (Window)provider.GetRequiredService (MainWindowType);
-        // ✅ UI 메시지 루프 시작 (블로킹)
-        app.Run (mainWindow);        
+        var app = (Application)provider.GetRequiredService (AppType);
+
+        if (MainWindowType == null)
+        {
+            app.Run ();
+        }
+        else
+        {
+            var mainWindow = (Window)provider.GetRequiredService (MainWindowType);
+
+            app.Run (mainWindow);        
+        }
 
         HostLifecycle.StopHostAndRunExit (Host, provider, OnExitAsync);
     }

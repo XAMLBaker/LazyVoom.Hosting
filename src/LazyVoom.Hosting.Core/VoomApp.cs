@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace LazyVoom.Hosting.Core
 {
@@ -15,6 +16,8 @@ namespace LazyVoom.Hosting.Core
         {
             Host = host;
         }
+        public T GetRequiredService<T>() where T : notnull
+                => Host.Services.GetRequiredService<T> ();
 
         public virtual void Run()
         {
