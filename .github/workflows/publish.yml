@@ -49,7 +49,7 @@ jobs:
           10.0.x
 
     - name: Build the packages
-      run: dotnet build .\LazyVoom_Build.sln -c Release -p:Version=${{ steps.get_version.outputs.VERSION }}
+      run: dotnet build .\LazyVoom.Hosting_Build.sln -c Release -p:Version=${{ steps.get_version.outputs.VERSION }}
 
     - name: Pack Libraries
       shell: bash
