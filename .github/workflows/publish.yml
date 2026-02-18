@@ -1,0 +1,79 @@
+name: Publish LazyRegion
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Tag -> Version 추출 (bash 고정)
+    - name: Get Version from Tag
+      id: get_version
+      shell: bash
+      run: |
+        echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+    # Annotated / Lightweight tag 모두 대응
+    - name: Get tag message
+      id: tag_message
+      shell: bash
+      run: |
+        MSG=$(git for-each-ref refs/tags/v${{ steps.get_version.outputs.VERSION }} --format='%(contents)')
+        if [ -z "$MSG" ]; then
+          MSG="No release notes provided."
+        fi
+
+        echo "MESSAGE<<EOF" >> $GITHUB_OUTPUT
+        echo "$MSG" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          7.0.x
+          8.0.x
+          9.0.x
+          10.0.x
+
+    - name: Build the packages
+      run: dotnet build .\LazyVoom_Build.sln -c Release -p:Version=${{ steps.get_version.outputs.VERSION }}
+
+    - name: Pack Libraries
+      shell: bash
+      run: |
+        dotnet pack -p:PackageVersion=${{ steps.get_version.outputs.VERSION }} -c Release -o out "src/LazyVoom.Hosting.WPF/LazyVoom.Hosting.WPF.csproj"
+
+        dotnet pack -p:PackageVersion=${{ steps.get_version.outputs.VERSION }} -c Release -o out "src/LazyVoom.Hosting.Winform/LazyVoom.Hosting.Winform.csproj"
+
+    - name: Push to NuGet
+      shell: bash
+      run: |
+        dotnet nuget push out/*.nupkg \
+          --api-key ${{ secrets.NUGET_API_KEY }} \
+          --source https://api.nuget.org/v3/index.json \
+          --skip-duplicate
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: out/*.nupkg
+        name: Release v${{ steps.get_version.outputs.VERSION }}
+        body: |
+          ### Release v${{ steps.get_version.outputs.VERSION }}
+
+          ${{ steps.tag_message.outputs.MESSAGE }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

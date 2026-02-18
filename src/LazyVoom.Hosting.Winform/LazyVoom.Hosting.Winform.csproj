@@ -9,7 +9,6 @@
 
     <!-- NuGet 패키지 정보 -->
     <PackageId>LazyVoom.Hosting.Winform</PackageId>
-    <Version>1.1.0</Version>
     <Authors>lukewire</Authors>
     <Description>Winform Host</Description>
     <PackageTags>LazyVoom.Hosting;LazyVoom.Hosting.Winform;Winform;Hosting Extensions</PackageTags>
